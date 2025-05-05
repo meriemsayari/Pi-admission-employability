@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualisation des Clusters</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Chart.js for visualization -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+{#        <div class="sidebar">#}
+{#            <div class="logo">#}
+{#                <h2>Score<span>Predict</span></h2>#}
+{#            </div>#}
+{#            <ul class="nav">#}
+{#                <li><a href="/"><i class="fas fa-home"></i> Accueil</a></li>#}
+{#                <li><a href="/employability"><i class="fas fa-briefcase"></i> Employabilité</a></li>#}
+{#                <li class="active"><a href="/visualization"><i class="fas fa-chart-scatter"></i> Visualisation</a></li>#}
+{#                <li><a href="/history"><i class="fas fa-history"></i> Historique</a></li>#}
+{#                <li><a href="/about"><i class="fas fa-info-circle"></i> À propos</a></li>#}
+{#            </ul>#}
+{#        </div>#}
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <header>
+                <div class="header-content">
+                    <h1>Visualisation des Clusters</h1>
+                    <p>Analyse des performances académiques par clustering K-means</p>
+                </div>
+            </header>
+
+            <div class="content-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-chart-scatter"></i> Clustering des Candidats</h2>
+                </div>
+                
+                <div class="visualization-container">
+                    {% if error %}
+                        <div class="error-message">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p>{{ error }}</p>
+                        </div>
+                    {% else %}
+                        <div class="chart-container">
+                            <canvas id="clusterChart"></canvas>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if cluster_stats %}
+            <div class="content-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-table"></i> Statistiques des Clusters</h2>
+                </div>
+                
+                <div class="stats-container">
+                    <table class="cluster-stats">
+                        <thead>
+                            <tr>
+                                <th>Cluster</th>
+                                <th>Nombre</th>
+                                <th colspan="3">Moyenne Bac (/20)</th>
+                                <th colspan="3">Score Final (/100)</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th>Moyenne</th>
+                                <th>Min</th>
+                                <th>Max</th>
+                                <th>Moyenne</th>
+                                <th>Min</th>
+                                <th>Max</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cluster_id, stats in cluster_stats.items() %}
+                            <tr>
+                                <td class="cluster-id">{{ cluster_id }}</td>
+                                <td>{{ stats.count }}</td>
+                                <td>{{ stats.bac_mean }}</td>
+                                <td>{{ stats.bac_min }}</td>
+                                <td>{{ stats.bac_max }}</td>
+                                <td>{{ stats.score_mean }}</td>
+                                <td>{{ stats.score_min }}</td>
+                                <td>{{ stats.score_max }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="content-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-sliders-h"></i> Paramètres du Clustering</h2>
+                </div>
+                
+                <div class="form-container">
+                    <form action="/visualization" method="POST">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="n_clusters">Nombre de Clusters</label>
+                                <select id="n_clusters" name="n_clusters">
+                                    <option value="2" {% if params.n_clusters == 2 %}selected{% endif %}>2</option>
+                                    <option value="3" {% if params.n_clusters == 3 %}selected{% endif %}>3</option>
+                                    <option value="4" {% if params.n_clusters == 4 %}selected{% endif %}>4</option>
+                                    <option value="5" {% if params.n_clusters == 5 %}selected{% endif %}>5</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="point_size">Taille des Points</label>
+                                <input type="range" id="point_size" min="3" max="15" step="1" value="7" oninput="updateChart()">
+                                <o id="point_size_value">7</o>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="transparency">Transparence</label>
+                                <input type="range" id="transparency" min="0.1" max="1.0" step="0.1" value="0.7" oninput="updateChart()">
+                                <o id="transparency_value">0.7</o>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary"><i class="fas fa-sync"></i> Recalculer Clusters</button>
+                            <button type="button" class="btn-secondary" onclick="resetChartSettings()"><i class="fas fa-undo"></i> Réinitialiser</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-info-circle"></i> Interprétation</h2>
+                </div>
+                
+                <div class="interpretation-container">
+                    <p>Cette visualisation utilise l'algorithme K-means pour regrouper les candidats en clusters basés sur leur performance académique. Les axes représentent:</p>
+                    <ul>
+                        <li><strong>Axe X:</strong> Moyenne du baccalauréat (échelle de 0 à 20)</li>
+                        <li><strong>Axe Y:</strong> Score d'admission (échelle de 0 à 100)</li>
+                    </ul>
+                    
+                    <p>Les différentes couleurs représentent les différents clusters identifiés par l'algorithme. Chaque cluster regroupe des candidats ayant des profils académiques similaires.</p>
+                    
+                    <h3>Analyse des Clusters</h3>
+                    <div class="cluster-analysis">
+                        {% if cluster_stats %}
+                            {% for cluster_id, stats in cluster_stats.items() %}
+                                <div class="cluster-card cluster-{{ cluster_id }}">
+                                    <h4>Cluster {{ cluster_id }}</h4>
+                                    <p><strong>Profil:</strong> 
+                                    {% if stats.score_mean > 75 and stats.bac_mean > 15 %}
+                                        Excellence académique
+                                    {% elif stats.score_mean > 60 and stats.bac_mean > 12 %}
+                                        Performance élevée
+                                    {% elif stats.score_mean > 50 and stats.bac_mean > 10 %}
+                                        Performance moyenne
+                                    {% else %}
+                                        Performance en dessous de la moyenne
+                                    {% endif %}
+                                    </p>
+                                    <p><strong>Candidats:</strong> {{ stats.count }}</p>
+                                    <p><strong>Moyenne BAC:</strong> {{ stats.bac_mean }}</p>
+                                    <p><strong>Score moyen:</strong> {{ stats.score_mean }}</p>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p>Aucune donnée de cluster disponible.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{##}
+{#    <footer>#}
+{#        <div class="footer-content">#}
+{#            <p>&copy; 2025 ScorePredict. Tous droits réservés.</p>#}
+{#        </div>#}
+{#    </footer>#}
+
+    <script>
+        // Chart.js configuration
+        const clusterColors = [
+            'rgba(31, 119, 180, 0.7)',   // blue
+            'rgba(255, 127, 14, 0.7)',   // orange
+            'rgba(44, 160, 44, 0.7)',    // green
+            'rgba(214, 39, 40, 0.7)',    // red
+            'rgba(148, 103, 189, 0.7)'   // purple
+        ];
+        
+        // Parse the data from Flask
+        const chartData = {{ chart_data|safe }};
+        const clusterStats = {{ cluster_stats_json|safe }};
+        
+        // Chart instance
+        let clusterChart;
+        
+        // Create datasets organized by cluster
+        function createDatasets(pointSize, transparency) {
+            // Group by cluster
+            const datasets = [];
+            const clusters = [...new Set(chartData.map(item => item.cluster))];
+            
+            clusters.sort((a, b) => a - b); // Sort clusters numerically
+            
+            clusters.forEach((cluster, index) => {
+                const data = chartData.filter(item => item.cluster === cluster).map(item => {
+                    return {
+                        x: item.x,
+                        y: item.y
+                    };
+                });
+                
+                datasets.push({
+                    label: `Cluster ${cluster}`,
+                    data: data,
+                    backgroundColor: clusterColors[index % clusterColors.length].replace('0.7', transparency),
+                    borderColor: clusterColors[index % clusterColors.length].replace('0.7', '1.0'),
+                    borderWidth: 1,
+                    pointRadius: pointSize,
+                    pointHoverRadius: pointSize + 2
+                });
+            });
+            
+            return datasets;
+        }
+        
+        // Initialize chart
+        function initChart() {
+            const ctx = document.getElementById('clusterChart').getContext('2d');
+            
+            // Get initial settings
+            const pointSize = parseInt(document.getElementById('point_size').value);
+            const transparency = parseFloat(document.getElementById('transparency').value);
+            
+            // Update display values
+            document.getElementById('point_size_value').textContent = pointSize;
+            document.getElementById('transparency_value').textContent = transparency;
+            
+            clusterChart = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: createDatasets(pointSize, transparency)
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Moyenne Bac (/20)',
+                                font: {
+                                    size: 14
+                                }
+                            },
+                            min: 0,
+                            max: 20,
+                            ticks: {
+                                stepSize: 2
+                            },
+                            grid: {
+                                color: 'rgba(200, 200, 200, 0.2)'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Score Admission (/100)',
+                                font: {
+                                    size: 14
+                                }
+                            },
+                            min: 0,
+                            max: 100,
+                            ticks: {
+                                stepSize: 10
+                            },
+                            grid: {
+                                color: 'rgba(200, 200, 200, 0.2)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Clustering des candidats par performance académique',
+                            font: {
+                                size: 16
+                            },
+                            padding: {
+                                top: 10,
+                                bottom: 30
+                            }
+                        },
+                        subtitle: {
+                            display: true,
+                            text: 'Méthode : K-means',
+                            padding: {
+                                bottom: 10
+                            }
+                        },
+                        legend: {
+                            position: 'top'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return [
+                                        `Cluster: ${context.dataset.label.split(' ')[1]}`,
+                                        `Bac: ${context.parsed.x.toFixed(2)}/20`,
+                                        `Score: ${context.parsed.y.toFixed(2)}/100`
+                                    ];
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Update chart with new settings
+        function updateChart() {
+            const pointSize = parseInt(document.getElementById('point_size').value);
+            const transparency = parseFloat(document.getElementById('transparency').value);
+            
+            // Update display values
+            document.getElementById('point_size_value').textContent = pointSize;
+            document.getElementById('transparency_value').textContent = transparency;
+            
+            // Update datasets
+            clusterChart.data.datasets = createDatasets(pointSize, transparency);
+            clusterChart.update();
+        }
+        
+        // Reset chart settings
+        function resetChartSettings() {
+            document.getElementById('point_size').value = 7;
+            document.getElementById('transparency').value = 0.7;
+            updateChart();
+        }
+        
+        // Initialize when document is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            if (chartData && chartData.length > 0) {
+                initChart();
+            }
+            
+            // Make chart container responsive
+            const resizeChart = () => {
+                const container = document.querySelector('.chart-container');
+                if (container) {
+                    container.style.height = `${window.innerHeight * 0.6}px`;
+                }
+            };
+            
+            resizeChart();
+            window.addEventListener('resize', resizeChart);
+        });
+    </script>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

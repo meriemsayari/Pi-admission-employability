@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À propos | ScorePredict</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="logo">
+                <h2>Score<span>Predict</span></h2>
+            </div>
+            <ul class="nav">
+                <li><a href="/"><i class="fas fa-home"></i> Accueil</a></li>
+                <li><a href="/history"><i class="fas fa-history"></i> Historique</a></li>
+                <li class="active"><a href="/about"><i class="fas fa-info-circle"></i> À propos</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <header>
+                <div class="header-content">
+                    <h1>À propos de ScorePredict</h1>
+                    <p>Découvrez notre application de prédiction de scores académiques</p>
+                </div>
+            </header>
+
+            <div class="content-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-star"></i> Notre Mission</h2>
+                </div>
+                
+                <div class="about-section">
+                    <div class="about-content">
+                        <h3>Prédire pour mieux réussir</h3>
+                        <p>ScorePredict a été conçu pour aider les étudiants à anticiper leurs performances académiques en se basant sur leurs résultats précédents et d'autres facteurs pertinents. Notre modèle de prédiction utilise des algorithmes d'apprentissage automatique avancés pour fournir des estimations précises.</p>
+                        
+                        <h3>Comment ça fonctionne ?</h3>
+                        <p>Notre système analyse trois facteurs clés :</p>
+                        <ul>
+                            <li><strong>ID du Concours</strong> - Chaque concours a ses propres caractéristiques et niveaux de difficulté.</li>
+                            <li><strong>Moyenne du Baccalauréat</strong> - Vos performances au baccalauréat sont un indicateur important de votre niveau académique général.</li>
+                            <li><strong>Résultat Précédent</strong> - Vos performances antérieures dans des concours similaires.</li>
+                        </ul>
+                        
+                        <p>Ces données sont traitées par notre modèle qui génère une prédiction de score basée sur les tendances et patterns identifiés dans notre vaste ensemble de données d'entraînement.</p>
+                    </div>
+                    
+                    <div class="about-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-question-circle"></i> Questions Fréquentes</h2>
+                </div>
+                
+                <div class="faq-section">
+                    <div class="faq-item">
+                        <div class="faq-question" data-toggle="faq1">
+                            <h3>Quelle est la précision du modèle de prédiction ?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer" id="faq1">
+                            <p>Notre modèle a été entraîné sur des milliers de données historiques et atteint une précision moyenne de 85%. Cependant, les prédictions doivent être considérées comme des indicateurs et non comme des résultats garantis.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" data-toggle="faq2">
+                            <h3>Mes données sont-elles sécurisées ?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer" id="faq2">
+                            <p>Absolument. Nous ne stockons aucune donnée personnelle sur nos serveurs. Toutes les prédictions sauvegardées sont stockées uniquement sur votre appareil (dans le localStorage de votre navigateur).</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" data-toggle="faq3">
+                            <h3>Comment puis-je améliorer mon score prédit ?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer" id="faq3">
+                            <p>Les recommandations fournies après chaque prédiction sont personnalisées en fonction de votre score. Suivre ces conseils peut vous aider à améliorer vos performances. En général, renforcer vos connaissances dans les matières fondamentales et pratiquer régulièrement avec des examens similaires sont de bonnes stratégies.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-envelope"></i> Contactez-nous</h2>
+                </div>
+                
+                <div class="contact-section">
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Nom</label>
+                            <input type="text" id="name" placeholder="Votre nom">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="Votre adresse email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" rows="5" placeholder="Votre message"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-paper-plane"></i> Envoyer
+                        </button>
+                    </form>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>123 Avenue des Sciences, 75000 Paris</span>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+33 1 23 45 67 89</span>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>contact@scorepredict.com</span>
+                        </div>
+                        
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 ScorePredict. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // FAQ toggle functionality
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-toggle');
+                    const answer = document.getElementById(targetId);
+                    
+                    // Toggle answer visibility
+                    if (answer.style.maxHeight) {
+                        answer.style.maxHeight = null;
+                        this.querySelector('i').classList.remove('fa-chevron-up');
+                        this.querySelector('i').classList.add('fa-chevron-down');
+                    } else {
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                        this.querySelector('i').classList.remove('fa-chevron-down');
+                        this.querySelector('i').classList.add('fa-chevron-up');
+                    }
+                });
+            });
+            
+            // Contact form submission (example only)
+            const contactForm = document.querySelector('.contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Merci pour votre message! Nous vous contacterons bientôt.');
+                    this.reset();
+                });
+            }
+        });
+    </script>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultat d'Employabilité</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+{#        <div class="sidebar">#}
+{#            <div class="logo">#}
+{#                <h2>Score<span>Predict</span></h2>#}
+{#            </div>#}
+{#            <ul class="nav">#}
+{#                <li><a href="/"><i class="fas fa-home"></i> Accueil</a></li>#}
+{#                <li class="active"><a href="/employability"><i class="fas fa-briefcase"></i> Employabilité</a></li>#}
+{#                <li><a href="/history"><i class="fas fa-history"></i> Historique</a></li>#}
+{#                <li><a href="/about"><i class="fas fa-info-circle"></i> À propos</a></li>#}
+{#            </ul>#}
+{#        </div>#}
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <header>
+                <div class="header-content">
+                    <h1>Résultat d'Employabilité</h1>
+                    <p>Voici votre niveau d'employabilité prédit</p>
+                </div>
+            </header>
+
+            <div class="result-container">
+                <div class="result-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-briefcase"></i> Votre Employabilité</h2>
+                    </div>
+                    
+                    <div class="employability-result">
+                        <div class="employability-score">
+                            <div class="emp-score-circle {% if employability == 1 %}high-emp{% else %}low-emp{% endif %}">
+                                <div class="emp-score-icon">
+                                    {% if employability == 1 %}
+                                        <i class="fas fa-thumbs-up"></i>
+                                    {% else %}
+                                        <i class="fas fa-thumbs-down"></i>
+                                    {% endif %}
+                                </div>
+                                <div class="emp-score-text">
+                                    {% if employability == 1 %}
+                                        Élevée
+                                    {% else %}
+                                        Limitée
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="interpretation">
+                            <h3>Analyse de votre profil</h3>
+                            {% if employability == 1 %}
+                                <p class="excellent">Félicitations! Votre profil présente un fort potentiel d'employabilité sur le marché du travail actuel.</p>
+                            {% else %}
+                                <p class="below-average">Votre profil présente actuellement quelques défis en termes d'employabilité. Consultez nos recommandations pour améliorer vos perspectives.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="profile-summary">
+                        <h3>Résumé de votre profil</h3>
+                        <div class="profile-grid">
+                            <div class="profile-item">
+                                <span class="profile-label">Sexe:</span>
+                                <span class="profile-value">{{ input_data.sexe }}</span>
+                            </div>
+                            <div class="profile-item">
+                                <span class="profile-label">Nationalité:</span>
+                                <span class="profile-value">{{ input_data.code_nationalite }}</span>
+                            </div>
+                            <div class="profile-item">
+                                <span class="profile-label">Gouvernorat:</span>
+                                <span class="profile-value">{{ input_data.code_gouv }}</span>
+                            </div>
+                            <div class="profile-item">
+                                <span class="profile-label">Score Final:</span>
+                                <span class="profile-value">{{ input_data.score_final }}</span>
+                            </div>
+                            <div class="profile-item">
+                                <span class="profile-label">Moyenne Bac:</span>
+                                <span class="profile-value">{{ input_data.moy_bac_et }}</span>
+                            </div>
+                            <div class="profile-item">
+                                <span class="profile-label">Nature du Bac:</span>
+                                <span class="profile-value">{{ input_data.nature_bac }}</span>
+                            </div>
+                            <div class="profile-item">
+                                <span class="profile-label">Cursus:</span>
+                                <span class="profile-value">{{ input_data.code_cursus }}</span>
+                            </div>
+                            <div class="profile-item">
+                                <span class="profile-label">Diplôme:</span>
+                                <span class="profile-value">{{ input_data.code_diplome }}</span>
+                            </div>
+                            <div class="profile-item">
+                                <span class="profile-label">Spécialité:</span>
+                                <span class="profile-value">{{ input_data.code_spec }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <a href="/employability" class="btn-primary"><i class="fas fa-redo"></i> Nouvelle Évaluation</a>
+                        <button id="save-result" class="btn-secondary"><i class="fas fa-save"></i> Sauvegarder le Résultat</button>
+                    </div>
+                </div>
+                
+                <div class="recommendation-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-lightbulb"></i> Recommandations</h2>
+                    </div>
+                    
+                    <div class="recommendations">
+                        <ul>
+                            {% if employability == 1 %}
+                                <li>Continuez à développer vos compétences techniques pour maintenir votre avantage concurrentiel</li>
+                                <li>Enrichissez votre CV avec des projets personnels et des contributions open source</li>
+                                <li>Développez votre réseau professionnel via LinkedIn et les événements du secteur</li>
+                                <li>Préparez-vous aux entretiens techniques spécifiques à votre domaine</li>
+                                <li>Explorez les certifications reconnues qui peuvent valoriser davantage votre profil</li>
+                            {% else %}
+                                <li>Envisagez de compléter votre formation avec des cours spécialisés dans les technologies demandées</li>
+                                <li>Travaillez sur des projets pratiques pour développer votre portfolio</li>
+                                <li>Cherchez des opportunités de stage ou d'alternance pour gagner en expérience professionnelle</li>
+                                <li>Améliorez vos compétences linguistiques, particulièrement en anglais technique</li>
+                                <li>Rejoignez des communautés en ligne et participez à des hackathons pour élargir votre réseau</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    
+                    <div class="market-trends">
+                        <h3><i class="fas fa-chart-pie"></i> Tendances du Marché</h3>
+                        <p>Les compétences les plus demandées actuellement dans votre domaine:</p>
+                        <div class="skills-container">
+                            {% if input_data.code_cursus == "INFO" %}
+                                <span class="skill-tag">Cloud Computing</span>
+                                <span class="skill-tag">DevOps</span>
+                                <span class="skill-tag">Cybersécurité</span>
+                                <span class="skill-tag">Intelligence Artificielle</span>
+                                <span class="skill-tag">Développement Mobile</span>
+                            {% elif input_data.code_cursus == "ELEC" %}
+                                <span class="skill-tag">IoT</span>
+                                <span class="skill-tag">Systèmes Embarqués</span>
+                                <span class="skill-tag">Robotique</span>
+                                <span class="skill-tag">Automatisation</span>
+                                <span class="skill-tag">Électronique Médicale</span>
+                            {% else %}
+                                <span class="skill-tag">Gestion de Projet</span>
+                                <span class="skill-tag">Analyse de Données</span>
+                                <span class="skill-tag">Communication</span>
+                                <span class="skill-tag">Travail d'Équipe</span>
+                                <span class="skill-tag">Anglais Professionnel</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{#    <footer>#}
+{#        <div class="footer-content">#}
+{#            <p>&copy; 2025 ScorePredict. Tous droits réservés.</p>#}
+{#        </div>#}
+{#    </footer>#}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Save result functionality
+            const saveResultButton = document.getElementById('save-result');
+            if (saveResultButton) {
+                saveResultButton.addEventListener('click', function() {
+                    // Create employability object
+                    const employabilityResult = {
+                        type: 'employability',
+                        employability: {{ employability }},
+                        sexe: "{{ input_data.sexe }}",
+                        code_nationalite: "{{ input_data.code_nationalite }}",
+                        code_gouv: "{{ input_data.code_gouv }}",
+                        score_final: "{{ input_data.score_final }}",
+                        moy_bac_et: "{{ input_data.moy_bac_et }}",
+                        nature_bac: "{{ input_data.nature_bac }}",
+                        code_cursus: "{{ input_data.code_cursus }}",
+                        code_diplome: "{{ input_data.code_diplome }}",
+                        code_spec: "{{ input_data.code_spec }}",
+                        date: new Date().toISOString()
+                    };
+                    
+                    // Get existing predictions from localStorage or initialize empty array
+                    let savedResults = JSON.parse(localStorage.getItem('employability_results') || '[]');
+                    
+                    // Add new prediction
+                    savedResults.push(employabilityResult);
+                    
+                    // Save to localStorage
+                    localStorage.setItem('employability_results', JSON.stringify(savedResults));
+                    
+                    // Show confirmation
+                    alert('Résultat d\'employabilité sauvegardé avec succès!');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

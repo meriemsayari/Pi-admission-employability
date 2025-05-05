@@ -1,0 +1,193 @@
+<iframe class="frame-view" [src]="vdata"></iframe>
+<!--
+<div class="main-content">
+  <header>
+    <div class="header-content">
+      <h1>Visualisation des Clusters</h1>
+      <p>Analyse des performances académiques par clustering K-means</p>
+    </div>
+  </header>
+
+  <div class="content-card">
+    <div class="card-header">
+      <h2><i class="fas fa-chart-scatter"></i> Clustering des Candidats</h2>
+    </div>
+
+    <div class="visualization-container">
+      if error
+      <div class="error-message">
+        <i class="fas fa-exclamation-triangle"></i>
+        <p>error</p>
+      </div>
+      else
+      <div class="chart-container">
+        <canvas id="clusterChart"></canvas>
+      </div>
+      endif
+    </div>
+  </div>
+
+  if cluster_stats
+  <div class="content-card">
+    <div class="card-header">
+      <h2><i class="fas fa-table"></i> Statistiques des Clusters</h2>
+    </div>
+
+    <div class="stats-container">
+      <table class="cluster-stats">
+        <thead>
+          <tr>
+            <th>Cluster</th>
+            <th>Nombre</th>
+            <th colspan="3">Moyenne Bac (/20)</th>
+            <th colspan="3">Score Final (/100)</th>
+          </tr>
+          <tr>
+            <th></th>
+            <th></th>
+            <th>Moyenne</th>
+            <th>Min</th>
+            <th>Max</th>
+            <th>Moyenne</th>
+            <th>Min</th>
+            <th>Max</th>
+          </tr>
+        </thead>
+        <tbody>
+          for cluster_id, stats in cluster_stats.items()
+          <tr>
+            <td class="cluster-id">cluster_id</td>
+            <td>stats.count</td>
+            <td>stats.bac_mean</td>
+            <td>stats.bac_min</td>
+            <td>stats.bac_max</td>
+            <td>stats.score_mean</td>
+            <td>stats.score_min</td>
+            <td>stats.score_max</td>
+          </tr>
+          endfor
+        </tbody>
+      </table>
+    </div>
+  </div>
+  endif
+
+  <div class="content-card">
+    <div class="card-header">
+      <h2><i class="fas fa-sliders-h"></i> Paramètres du Clustering</h2>
+    </div>
+
+    <div class="form-container">
+      <form action="/visualization" method="POST">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="n_clusters">Nombre de Clusters</label>
+            <select id="n_clusters" name="n_clusters">
+              <option value="2" if params.n_clusters="2" selected endif>
+                2
+              </option>
+              <option value="3" if params.n_clusters="3" selected endif>
+                3
+              </option>
+              <option value="4" if params.n_clusters="4" selected endif>
+                4
+              </option>
+              <option value="5" if params.n_clusters="5" selected endif>
+                5
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="point_size">Taille des Points</label>
+            <input
+              type="range"
+              id="point_size"
+              min="3"
+              max="15"
+              step="1"
+              value="7"
+              oninput="updateChart()"
+            />
+            <span id="point_size_value">7</span>
+          </div>
+
+          <div class="form-group">
+            <label for="transparency">Transparence</label>
+            <input
+              type="range"
+              id="transparency"
+              min="0.1"
+              max="1.0"
+              step="0.1"
+              value="0.7"
+              oninput="updateChart()"
+            />
+            <span id="transparency_value">0.7</span>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">
+            <i class="fas fa-sync"></i> Recalculer Clusters
+          </button>
+          <button
+            type="button"
+            class="btn-secondary"
+            onclick="resetChartSettings()"
+          >
+            <i class="fas fa-undo"></i> Réinitialiser
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="content-card">
+    <div class="card-header">
+      <h2><i class="fas fa-info-circle"></i> Interprétation</h2>
+    </div>
+
+    <div class="interpretation-container">
+      <p>
+        Cette visualisation utilise l'algorithme K-means pour regrouper les
+        candidats en clusters basés sur leur performance académique. Les axes
+        représentent:
+      </p>
+      <ul>
+        <li>
+          <strong>Axe X:</strong> Moyenne du baccalauréat (échelle de 0 à 20)
+        </li>
+        <li><strong>Axe Y:</strong> Score d'admission (échelle de 0 à 100)</li>
+      </ul>
+
+      <p>
+        Les différentes couleurs représentent les différents clusters identifiés
+        par l'algorithme. Chaque cluster regroupe des candidats ayant des
+        profils académiques similaires.
+      </p>
+
+      <h3>Analyse des Clusters</h3>
+      <div class="cluster-analysis">
+        if cluster_stats for cluster_id, stats in cluster_stats.items()
+        <div class="cluster-card cluster- cluster_id">
+          <h4>Cluster cluster_id</h4>
+          <p>
+            <strong>Profil:</strong>
+            if stats.score_mean > 75 and stats.bac_mean > 15 Excellence
+            académique elif stats.score_mean > 60 and stats.bac_mean > 12
+            Performance élevée elif stats.score_mean > 50 and stats.bac_mean >
+            10 Performance moyenne else Performance en dessous de la moyenne
+            endif
+          </p>
+          <p><strong>Candidats:</strong> stats.count</p>
+          <p><strong>Moyenne BAC:</strong> stats.bac_mean</p>
+          <p><strong>Score moyen:</strong> stats.score_mean</p>
+        </div>
+        endfor else
+        <p>Aucune donnée de cluster disponible.</p>
+        endif
+      </div>
+    </div>
+  </div>
+</div> -->

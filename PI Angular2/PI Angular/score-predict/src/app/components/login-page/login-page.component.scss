@@ -1,0 +1,23 @@
+::ng-deep .login-screen-cls {
+    .row {
+      padding-bottom: 0rem !important;
+    }
+  }
+  ::ng-deep .img-fluid{
+      max-width: 100%!important;
+      height: auto!important;
+      border: 1px solid!important;
+      border-radius: 7px!important
+  }
+  ::ng-deep .password{
+    border: none !important;
+    padding-left: 0rem !important;
+    padding-right: 0rem !important;
+    .p-password{
+      width: 100% !important;
+    }
+    .p-inputtext{
+      width: 100% !important;
+      height: 41px!important;
+    }
+  }
