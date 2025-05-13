@@ -1,8 +1,8 @@
 # Pi-admission-employability
-#Project Overview
+# Project Overview
 This project is a comprehensive data-driven solution designed to enhance decision-making processes through the use of Business Intelligence (BI), Machine Learning (ML), and Generative AI. The data sources include internal and external datasets in various formats such as Excel, CSV, SQL databases, and images, as well as web-scraped data. The solution covers the full pipeline from data acquisition and transformation to model deployment and visualization.
 
-#Key Features
+# Key Features
 Multi-Format Data Integration
 Collected data from various sources:
 
@@ -67,7 +67,7 @@ Web Frameworks: Flask, Angular
 
 AI & Automation: OpenAI, Generative AI tools
 
-#Deployment & Access
+# Deployment & Access
 Back-End API: Flask (Python)
 
 Front-End: Angular
@@ -77,7 +77,7 @@ Dashboards: Power BI Service with embedded dynamic filters
 Reports: Generated in real-time with AI tools and exported in various formats (PDF, Word)
 
 
-#Use Cases
+# Use Cases
 Admission forecasting for higher education
 
 Employability insights and KPIs for career services
