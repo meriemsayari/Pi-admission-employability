@@ -85,3 +85,13 @@ Employability insights and KPIs for career services
 Real-time analytics for management and stakeholders
 
 Automated, AI-generated business reports
+
+# SCREENSHOTS
+![image](https://github.com/user-attachments/assets/507dd319-fcea-46f4-9142-68f7943ccb5b)
+![image](https://github.com/user-attachments/assets/d3b3b4e7-d78e-4571-9dd2-d827d2612036)
+![image](https://github.com/user-attachments/assets/f2fafd78-eccb-4d8b-a4e1-b96e5536a78e)
+![image](https://github.com/user-attachments/assets/b5c98ad2-110b-4836-a3c4-96dd81a90f29)
+![image](https://github.com/user-attachments/assets/9166a28e-8939-478a-9748-f0f6687d4a76)
+![image](https://github.com/user-attachments/assets/bcd73f61-f06b-4658-90aa-2163af87a707)
+
+
