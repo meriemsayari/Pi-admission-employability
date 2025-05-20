@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prédiction de Score</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+      <!-- Update the sidebar navigation in index.html -->
+<div class="sidebar">
+    <div class="logo">
+        <h2>Black<span>Box</span></h2>
+    </div>
+    <ul class="nav">
+        <li class="active"><a href="/"><i class="fas fa-home"></i> Accueil</a></li>
+        <li><a href="/employability"><i class="fas fa-briefcase"></i> Employabilité</a></li>
+        <li><a href="/visualization"><i class="fas fa-chart-scatter"></i> Visualisation</a></li>
+        <li><a href="/history"><i class="fas fa-history"></i> Historique</a></li>
+        <li><a href="/about"><i class="fas fa-info-circle"></i> À propos</a></li>
+    </ul>
+</div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <header>
+                <div class="header-content">
+                    <h1>Prédiction de Score Académique</h1>
+                    <p>Obtenez une prédiction précise basée sur vos données</p>
+                </div>
+            </header>
+            <!-- Add or update the services section in index.html -->
+<div class="additional-services">
+    <h2>Nos Services</h2>
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>Prédiction de Score</h3>
+            <p>Obtenez une prédiction précise de votre score académique basée sur vos données.</p>
+            <a href="/" class="service-link">Service actuel</a>
+        </div>
+        
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-briefcase"></i>
+            </div>
+            <h3>Prédiction d'Employabilité</h3>
+            <p>Évaluez vos chances sur le marché du travail en fonction de votre profil académique.</p>
+            <a href="/employability" class="service-link">Essayer maintenant</a>
+        </div>
+        
+        <div class="service-card highlight">
+            <div class="service-icon">
+                <i class="fas fa-chart-scatter"></i>
+            </div>
+            <h3>Visualisation des Clusters</h3>
+            <p>Explorez l'analyse des performances académiques par clustering K-means.</p>
+            <a href="/visualization" class="service-link">Visualiser</a>
+        </div>
+    </div>
+</div>
+            <div class="content-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-chart-line"></i> Formulaire de Prédiction</h2>
+                </div>
+                
+                <div class="form-container">
+                    <form action="/predict" method="POST" id="prediction-form">
+                        <div class="form-group">
+                            <label for="id_concours">ID du Concours</label>
+                            <input type="number" id="id_concours" name="id_concours" required placeholder="Entrez l'ID du concours">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="moy_bac_et">Moyenne du Bac</label>
+                            <input type="number" step="0.01" id="moy_bac_et" name="moy_bac_et" required placeholder="Entrez votre moyenne du baccalauréat">
+                            <div class="range-info">
+                                <span>0</span>
+                                <span>20</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="resultat">Résultat Précédent</label>
+                            <select id="resultat" name="resultat" required>
+                                <option value="" disabled selected>Sélectionnez votre résultat précédent</option>
+                                <option value="ADMIS(E)">ADMIS(E)</option>
+                                <option value="REFUSE(E)">REFUSE(E)</option>
+                                <option value="LISTE ATTENTE">LISTE ATTENTE</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary"><i class="fas fa-magic"></i> Obtenir Prédiction</button>
+                            <button type="reset" class="btn-secondary"><i class="fas fa-redo"></i> Réinitialiser</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="info-cards">
+                <div class="info-card">
+                    <div class="card-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Précision du Modèle</h3>
+                    <p>Notre modèle est entraîné sur des milliers de données académiques pour vous offrir des prédictions fiables.</p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="card-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Résultats Instantanés</h3>
+                    <p>Obtenez votre prédiction en quelques secondes et planifiez votre parcours académique en conséquence.</p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Données Sécurisées</h3>
+                    <p>Vos informations personnelles sont traitées en toute sécurité et ne sont jamais partagées.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 BlackBox. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
