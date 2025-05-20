@@ -1,0 +1,10 @@
+<div class="sidebar">
+  <div class="logo">
+    <h2>BLACK<span>BOX</span></h2>
+  </div>
+  <ul class="nav">
+    <li *ngFor="let link of links">
+      <a [routerLink]="link.path"><i [class]="link.icon"></i> {{ link.label }}</a>
+    </li>
+  </ul>
+</div>

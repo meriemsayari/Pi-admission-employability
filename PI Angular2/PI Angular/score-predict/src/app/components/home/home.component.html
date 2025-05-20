@@ -1,0 +1,155 @@
+<div class="main-content">
+  <header>
+    <div class="header-content">
+      <h1>Academic Score Prediction</h1>
+      <p>Get an accurate prediction based on your data</p>
+    </div>
+  </header>
+
+  <!-- Add or update the services section in index.html -->
+  <div class="additional-services">
+    <h2>Our Services</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h3>Score Prediction</h3>
+        <p>
+          Get an accurate prediction of your academic score based on your data.
+        </p>
+        <a href="/" class="service-link">Current Service</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fas fa-briefcase"></i>
+        </div>
+        <h3>Employability Prediction</h3>
+        <p>
+          Assess your chances in the job market based on your academic profile.
+        </p>
+        <a href="/employability" class="service-link">Try Now</a>
+      </div>
+
+      <div class="service-card highlight">
+        <div class="service-icon">
+          <i class="fas fa-chart-scatter"></i>
+        </div>
+        <h3>Cluster Visualization</h3>
+        <p>
+          Explore academic performance analysis through K-means clustering.
+        </p>
+        <a href="/visualization" class="service-link">Visualize</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-card">
+    <div class="card-header">
+      <h2><i class="fas fa-chart-line"></i> Prediction Form</h2>
+    </div>
+
+    <div class="form-container">
+      <form
+        id="prediction-form"
+        [formGroup]="predictionForm"
+        (ngSubmit)="onSubmit()"
+      >
+        <div class="form-group">
+          <label for="id_concours">Competition ID</label>
+          <input
+            type="number"
+            id="id_concours"
+            formControlName="id_concours"
+            [class.invalid]="
+              idConcours.invalid && (idConcours.dirty || idConcours.touched)
+            "
+            placeholder="Enter the competition ID"
+          />
+          <div
+            *ngIf="
+              idConcours.invalid && (idConcours.dirty || idConcours.touched)
+            "
+            class="error-message"
+          >
+            <div *ngIf="idConcours.errors?.['required']">
+              Competition ID is required
+            </div>
+            <div *ngIf="idConcours.errors?.['min']">
+              Competition ID must be positive
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="moy_bac_et">High School Average</label>
+          <input
+            type="number"
+            id="moy_bac_et"
+            formControlName="moy_bac_et"
+            placeholder="Enter your high school average"
+            [class.invalid]="
+              moyBacEt.invalid && (moyBacEt.dirty || moyBacEt.touched)
+            "
+          />
+          <div
+            *ngIf="moyBacEt.invalid && (moyBacEt.dirty || moyBacEt.touched)"
+            class="error-message"
+          >
+            <div *ngIf="moyBacEt.errors?.['required']">Average is required</div>
+            <div *ngIf="moyBacEt.errors?.['min']">Average must be positive</div>
+            <div *ngIf="moyBacEt.errors?.['max']">Average cannot exceed 20</div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button
+            type="submit"
+            [disabled]="!predictionForm.valid"
+            class="btn-primary"
+          >
+            <i class="fas fa-magic"></i> Get Prediction
+          </button>
+          <button type="reset" class="btn-secondary">
+            <i class="fas fa-redo"></i> Reset
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="info-cards">
+    <div class="info-card">
+      <div class="card-icon">
+        <i class="fas fa-graduation-cap"></i>
+      </div>
+      <h3>Model Accuracy</h3>
+      <p>
+        Our model is trained on thousands of academic data points to provide
+        reliable predictions.
+      </p>
+    </div>
+
+    <div class="info-card">
+      <div class="card-icon">
+        <i class="fas fa-rocket"></i>
+      </div>
+      <h3>Instant Results</h3>
+      <p>
+        Get your prediction in a few seconds and plan your academic path
+        accordingly.
+      </p>
+    </div>
+
+    <div class="info-card">
+      <div class="card-icon">
+        <i class="fas fa-shield-alt"></i>
+      </div>
+      <h3>Secure Data</h3>
+      <p>
+        Your personal information is securely processed and never shared.
+      </p>
+    </div>
+  </div>
+</div>

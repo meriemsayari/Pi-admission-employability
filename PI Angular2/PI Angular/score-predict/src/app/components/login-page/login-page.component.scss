@@ -1,0 +1,71 @@
+::ng-deep .login-screen-cls {
+  .row {
+    padding-bottom: 0rem !important;
+  }
+}
+
+::ng-deep .img-fluid {
+  max-width: 100% !important;
+  height: auto !important;
+  border: 1px solid !important;
+  border-radius: 7px !important;
+}
+
+::ng-deep .password {
+  border: none !important;
+  padding-left: 0rem !important;
+  padding-right: 0rem !important;
+  
+  .p-password {
+    width: 100% !important;
+  }
+  
+  .p-inputtext {
+    width: 100% !important;
+    height: 41px !important;
+  }
+}
+
+/* Styles personnalisés pour la page de login */
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--light);
+}
+
+.container {
+  max-width: 100%;
+  height: 100%;
+}
+
+.card {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  padding: 30px;
+}
+
+h3 {
+  font-size: 24px;
+  color: var(--dark);
+  font-weight: bold;
+}
+
+.form-control {
+  border-radius: 5px;
+  border-color: var(--dark);
+}
+
+.btn-primary {
+  background-color: var(--danger);
+  border-color: var(--danger);
+  color: #fff;
+}
+
+.btn-primary:disabled {
+  background-color: #cccccc;
+  border-color: #cccccc;
+}
+
+.text-danger {
+  font-size: 0.875rem;
+  color: var(--danger);
+}
